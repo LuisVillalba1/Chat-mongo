@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+:root{
+    --gris : rgb(63, 64, 69);
+    --white : rgb(220 220 220);
+    --grisClaro : rgb(180 180 180);
+    --negro : rgb(32, 34, 34);
+}
+
+body{
+    background: var(--negro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.chat_content_container_response{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 800px;
+}
+
+.main{
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+}
+
+
+.img_contact_container{
+    padding: 2px;
+}
+
+.container_img{
+    width: 50px;
+    height: 50px;
+    background-image: url(/images/foto_individuo.avif);
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.chat_content_response{
+    overflow-y: scroll;
+    height: 100%;
+    max-width: 800px;
+    background: var(--white);
+}
+
+.chat_content_response::-webkit-scrollbar{
+    width: 0;
+}
+
+.chat_content__user_data{
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--negro);
+    background: var(--gris);
+}
+
+.message_info p{
+    color: var(--white);
+}   
+
+.messages{
+    margin-bottom: 30px;
+    display: block;
+    overflow: hidden;
+}
+
+.message_recived{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.message_recived p{
+    font-size: 17px;
+}
+
+.send_message{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.write_message_container{
+    border-radius: 9999px;
+    outline: none;
+    padding: 3px 5px;
+    flex-grow: 1;
+}
+
+.send_message i{
+    font-size: 20px;
+    color: var(--white);
+}
+
+
+

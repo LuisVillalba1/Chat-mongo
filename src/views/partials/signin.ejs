@@ -1,0 +1,22 @@
+<div class="container">
+  <form action="/api/" class="d-flex justify-content-center align-items-center flex-column" method="post">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input type="email" class="form-control" id="email" placeholder="name@example.com" autocomplete="username">
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" class="form-control" id="password" autocomplete="current-password">
+    </div>
+    <div class="mb-3">
+      <p class="error_p"></p>
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-3">sign in</button>
+    </div>
+  </form>
+  <div class="log_in_container">
+    <a href="/api/forgotPassword">Forgot my Password</a>
+      <a href="/api/login">Create account</a>
+  </div>
+</div>
