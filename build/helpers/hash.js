@@ -8,21 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connection = exports.client = void 0;
-const mongodb_1 = require("mongodb");
-const envs_1 = require("../env/envs");
-//set uri string locally
-const uri = envs_1.db_uri;
-//connecting to our database
-exports.client = new mongodb_1.MongoClient(uri);
-const connection = () => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        yield exports.client.connect();
-        console.log("DB connected");
-    }
-    catch (e) {
-        console.log(`Error connecting to the database:${e}`);
-    }
+exports.compareHash = exports.generateHash = void 0;
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+//generate a hash with de password entered
+const generateHash = (text) => __awaiter(void 0, void 0, void 0, function* () {
+    const hash = yield bcryptjs_1.default.hash(text, 10);
+    return hash;
 });
-exports.connection = connection;
+exports.generateHash = generateHash;
+//compare the passwords
+const compareHash = (password, hasPassword) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield bcryptjs_1.default.compare(password, hasPassword);
+});
+exports.compareHash = compareHash;

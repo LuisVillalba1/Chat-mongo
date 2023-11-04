@@ -34,6 +34,8 @@ async function sendData(currentUrl, account) {
 
       if(response.status === 303) {
         cleanValuesInputs();
+        console.log(data);
+        localStorage.setItem("userName",data.user)
         window.location.href = data.location;
       }
       else if(data.type == "Error"){

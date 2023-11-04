@@ -6,6 +6,7 @@ import inicioRouter from "./routers/inicio";
 import morgan from "morgan";
 import privateRouter from "./routers/private";
 import { getUserCokkie } from "./utils/getDataCookie";
+import { Request,Response } from "express";
 
 const app = express();
 
@@ -28,6 +29,12 @@ app.use("/api/",privateRouter);
 
 //set where its our static documents
 app.use(express.static(path.join(__dir,"public")));
+
+app.use("*",(_req : Request,res : Response)=>{
+    res.send({
+        message : "path not found"
+    })
+})
 
 
 //create our server

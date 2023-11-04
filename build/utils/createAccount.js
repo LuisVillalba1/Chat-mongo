@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.createAccount = exports.searchUserAndEmail = void 0;
 const connectionDb_1 = require("../db/connectionDb");
+const hash_1 = require("../helpers/hash");
 //cheking if the email and userName received are already registered in the db
 const searchUserAndEmail = (email, userName) => __awaiter(void 0, void 0, void 0, function* () {
     //get db and collection
@@ -34,13 +35,18 @@ exports.searchUserAndEmail = searchUserAndEmail;
 const createAccount = (account, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         //create a new account which has NewRegister properties
-        const newAccount = {};
-        //exlude the property passwordRepeat from account in newAccount
-        for (const key in account) {
-            if (key != "passwordRepeat") {
-                newAccount[key] = account[key];
-            }
-        }
+        const newAccount = {
+            name: account.name,
+            lastName: account.lastName,
+            userName: account.userName,
+            email: account.email,
+            country: account.country,
+            city: account.city,
+            password: yield (0, hash_1.generateHash)(account.password),
+            loginAttempts: 1,
+            isLocked: false,
+            lockedUntil: null
+        };
         //verify if the email and username exists
         yield (0, exports.searchUserAndEmail)(newAccount.email, newAccount.userName);
         //insert the new user in the db
@@ -54,11 +60,13 @@ const createAccount = (account, res) => __awaiter(void 0, void 0, void 0, functi
     catch (e) {
         if (e instanceof Error) {
             return res.json({
-                message: e.message
+                message: e.message,
+                type: e.name
             });
         }
         return res.json({
-            message: "Missing error"
+            message: "Missing error",
+            type: "Error"
         });
     }
 });

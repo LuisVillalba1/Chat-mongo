@@ -1,30 +1,54 @@
+const socket = io()
 
-const iconContainer = document.querySelector(".icon_search");
-const inputContainer = document.querySelector(".input_container");
+const inputMessage = document.querySelector(".write_message_container");
 
-const headChat = document.querySelector(".search_chat_container");
-
-const searchBack = document.getElementById("i_search_back")
-
-iconContainer.addEventListener("click",(e)=>{
-    for(let i of headChat.children){
-        i.style.display = "none"
+inputMessage.addEventListener("keydown",(e)=>{
+    if(e.key == "Enter"){
+        socket.emit("message",inputMessage.value);
+        inputMessage.value = ""
     }
-    inputContainer.style.display = "block"
-    inputContainer.style.animation = "MostrarInput linear 0.5s 1 forwards running"
-    inputContainer.lastElementChild.style.display = "block";
-    searchBack.classList.add("fa-solid");
-    searchBack.classList.add("fa-arrow-left-long")
-    inputContainer.firstElementChild.style.display = "block"
+
+})
+
+const icon_send_message = document.getElementById("i_send_message");
+
+icon_send_message.addEventListener("click",()=>{
+    if(inputMessage.value.length > 0){
+        socket.emit("message",inputMessage.value);
+        inputMessage.value = ""
+    }
 })
 
 
-searchBack.addEventListener("click",(e)=>{
-    for(let i of headChat.children){
-        i.style.display = "flex"
+const msgsContainer = document.querySelector(".messages")
+const main_continer = document.querySelector(".chat_content_container_response")
+const fragmento = document.createDocumentFragment()
+
+const chat_content_response = document.querySelector(".chat_content_response");
+
+socket.on("chat message",(msg)=>{
+    if(msg.user){
+        const divMessage = document.createElement("div");
+        divMessage.classList.add("message_recived");
+
+        const user = document.createElement("b");
+        user.innerHTML = msg.user
+        const message = document.createElement("p");
+        message.innerHTML = msg.message;
+        
+        divMessage.appendChild(user);
+        divMessage.appendChild(message);
+
+        fragmento.appendChild(divMessage);
+        msgsContainer.appendChild(fragmento);
+
+        chat_content_response.scrollTop = chat_content_response.scrollHeight;
     }
-    console.log(inputContainer.lastElementChild)
-    inputContainer.style.animation = "OcultarInput linear 0.5s 1 forwards running"
+    else{
+        alert(msg.message);
+        window.location.href = "/api/"
+    }
 })
 
 
+// Mover el contenedor hacia abajo automáticamente para mostrar el nuevo mensaje

@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const sigin_1 = require("../utils/sigin");
 const createAccount_1 = require("../utils/createAccount");
+const forgotPassword_1 = require("../utils/forgotPassword");
+const changePassword_1 = require("../helpers/changePassword");
 const inicioRouter = (0, express_1.Router)();
 //sig-in
 inicioRouter.get("/", (_req, res) => {
@@ -29,4 +31,20 @@ inicioRouter.get("/login", (_req, res) => {
 inicioRouter.post("/login/createAccount", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, createAccount_1.createAccount)(req.body, res);
 }));
+//forgot password link
+inicioRouter.get("/forgotPassword", (_req, res) => {
+    res.render("forgotPassword");
+});
+//send a email
+inicioRouter.post("/forgotPassword", (req, res) => {
+    (0, forgotPassword_1.getAccountData)(req.body, res);
+});
+//recuperate account
+inicioRouter.get("/recuperatePassword/:token", (_req, res) => {
+    res.render("recuperateAccount");
+});
+//check the password to the account
+inicioRouter.post("/recuperatePassword/:token", (req, res) => {
+    (0, changePassword_1.changePassword)(req, res);
+});
 exports.default = inicioRouter;

@@ -11,17 +11,17 @@ const verifyConnection = (req, res, next) => {
         //get the token value
         const token = req.headers.cookie.split("=")[1];
         if (!token) {
-            console.log("hola");
             return res.status(401).json({
-                message: "deny access"
+                message: "deny access",
+                type: "Error"
             });
         }
         //verify if the token with My_secret_key sign is valid
         jsonwebtoken_1.default.verify(token, "My_secret_key", (error, decoded) => {
             if (error) {
-                console.log("hola2");
                 return res.status(401).json({
-                    message: "Token not valid"
+                    message: "Token not valid",
+                    type: "Error"
                 });
             }
             const user = decoded;

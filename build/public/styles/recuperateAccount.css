@@ -13,43 +13,31 @@
 }
 
 body{
-    background: var(--negro);
+    background: linear-gradient(to bottom right, var(--amarillo), var(--verde));
     height: 100vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.loggin_container {
+.main_container{
     border-radius: 20px;
     padding: 40px;
     border: 1px solid rgb(10 10 10);
     background: linear-gradient(to bottom, var(--amarillo), var(--verde));
-}
-
-.image_container{
     display: flex;
     justify-content: center;
-}
-
-.image_container img{
-    max-width: 250px;
-}
-
-.log_in_container{
-    display: flex;
-    margin-top: 10px;
-    width: 100%;
+    align-items: center;
     flex-direction: column;
 }
 
-.log_in_container a{
-    text-align: end;
-    margin-bottom: 5px;
-    display: flex;
-    align-self: flex-end;
-    font-size: 17px;
-    text-decoration: none;
-    color: var(--azul);
+#response_server_container{
+    display: none;
+    background: rgb(220,220,220);
 }
 
+.response_server{
+    font-size: 17px;
+    padding: 5px;
+}

@@ -8,21 +8,26 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.connection = exports.client = void 0;
-const mongodb_1 = require("mongodb");
-const envs_1 = require("../env/envs");
-//set uri string locally
-const uri = envs_1.db_uri;
-//connecting to our database
-exports.client = new mongodb_1.MongoClient(uri);
-const connection = () => __awaiter(void 0, void 0, void 0, function* () {
+exports.generateToken = void 0;
+const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
+//generate a token for recuperate a account
+const generateToken = (user) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        yield exports.client.connect();
-        console.log("DB connected");
+        const secretKey = "My_secret_key";
+        //create a new token;
+        //token expires one hour after it is generated
+        const token = jsonwebtoken_1.default.sign(user, secretKey, { expiresIn: "1h" });
+        return token;
     }
     catch (e) {
-        console.log(`Error connecting to the database:${e}`);
+        if (e instanceof Error) {
+            throw new Error(e.message);
+        }
+        throw new Error("Missing error");
     }
 });
-exports.connection = connection;
+exports.generateToken = generateToken;
